@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*{
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.Scrollbar{
+  scrollbar-width: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.Scrollbar::-webkit-scrollbar {
+  display: none;              
+}
+
+select{
+background-color:transparent;
+}
+option{
+  background: #251212;
+}
+.lower,.upper,.effect{
+  transition:transform 5S ease 1s , opacity 5S ease 1s;
+}
+.lower{
+  transform:translateY(-100%)
+}
+.upper{
+  transform:translateY(100%)
+}
+.effect{
+  opacity:0;
+}
+
+.search {
+  animation: spin 3s ease-in infinite;
+}
+
+table,tr{
+  border:3px solid rgb(107, 82, 60);
+  width:85%;
+  text-align: center;
+  margin:0 auto;
+}
+
+thead{
+  background: #7e6b6b;
+}
+
+tbody th{
+  background: #413d3d;
+}
+
+tbody{
+  color:#bcb9b9;
+}
+
+.performanceSection table th{
+  border:2px solid rgb(136, 90, 90);
+}
+
+.progress table{
+  border:2px solid #dcd2d2;
+  width:100%;
+  td{
+    background-color: rgb(66, 75, 83);
+  }
+  th,td,thead,tbody,tr{
+    border:2px solid rgb(224, 217, 217);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media all and (max-width:350px) {
+  nav{
+    font-size: 10px;
+    font-weight: bold;
+  }
+  button{
+    width:60px;
+    font-size:12px;
+  }
+  .login .fl{
+    font-size: 16px;
+  }
+  .login{
+    width:40px;
+    height:40px;
+  }
+  .QList{
+    font-size: 12px;
+  }
+  table{
+    font-size:13px;
+  }
+}
+ul>li{
+  border:1px solid rgb(191, 182, 182);
+  margin:3px 0px;
+  cursor:pointer;
 }

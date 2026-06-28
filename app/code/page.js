@@ -4,27 +4,30 @@ import ReactDOM from 'react-dom';
 import Editor from '@monaco-editor/react';
 import { useSearchParams } from 'next/navigation';
 import { Skeleton2 } from '../components/skeleton/skeleton';
-import { ToastContainer,Bounce} from 'react-toastify';
+import { ToastContainer, Bounce } from 'react-toastify';
 import showAlert from '../utils/showalert';
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { Suspense } from "react";
 
-const Page = () => {
+
+function CodePage(){
   const router = useRouter()
   const [code, setCode] = useState('')
   const editorRef = useRef(null)
   const languageRef = useRef(null)
   const btns = useRef({
-    copy:'copy',
-    paste:'paste'
+    copy: 'copy',
+    paste: 'paste'
   })
   const [lang_id, setLang_id] = useState("63")
   const [output, setOutput] = useState(null)
   const [loading, setLoading] = useState(false)
   const [showcodes, setShowcodes] = useState([])
   const [codesToggle, setcodesToggle] = useState(false)
-  let problem = useSearchParams().get('prob')
-  let user = useSearchParams().get('user')
-  let Provider = useSearchParams().get('provider')  
+  const searchParams = useSearchParams();
+  const problem = searchParams.get("prob") ?? "";
+  const user = searchParams.get("user") ?? "";
+  const provider = searchParams.get("provider") ?? "";
 
   const handleFormat = () => {
     if (!editorRef.current) return console.log('not mount yet');
@@ -80,12 +83,12 @@ const Page = () => {
     let res = await fetch('api/editor/save', {
       method: "POST",
       header: { "content-type": "application/json" },
-      body: JSON.stringify({ User: user,Provider, Lang_id: lang_id, Language, Question, Code: code, })
+      body: JSON.stringify({ User: user, Provider, Lang_id: lang_id, Language, Question, Code: code, })
     })
-    let {msg} = await res.json()
+    let { msg } = await res.json()
     let result = confirm(msg)
     if (result && msg == 'allready exists can you want to update it') {
-      updateCode({ User: user,Provider, Lang_id: lang_id, Language, Question, Code: code, })
+      updateCode({ User: user, Provider, Lang_id: lang_id, Language, Question, Code: code, })
       return
     }
 
@@ -95,51 +98,50 @@ const Page = () => {
   const updateCode = async (body) => {
     let res = await fetch('api/editor/update', {
       method: "POST",
-      header: { "content-type": "application/json" },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(body)
     })
-    let {msg} = await res.json()
-    showAlert({msg,type:'success'})
+    let { msg } = await res.json()
+    showAlert({ msg, type: 'success' })
   }
 
-  const savedCodes = async (User,Provider) => {
+  const savedCodes = async (User, Provider) => {
     try {
       let res = await fetch('api/editor/saved_codes', {
         method: "POST",
-        header: { "content-type": "application/json" },
-        body: JSON.stringify({User,Provider})
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ User, Provider })
       })
       let codes = await res.json()
       setShowcodes(codes.mycodes);
     }
     catch (err) {
       console.log(err);
-
     }
   }
 
-  const handleCopy = (e,code)=>{
+  const handleCopy = (e, code) => {
     navigator.clipboard.writeText(code)
     let text = btns.current.copy
-    text.innerText="Copied!"
-    setTimeout(()=>{
-      text.innerText='Copy'
-    },1000)
+    text.innerText = "Copied!"
+    setTimeout(() => {
+      text.innerText = 'Copy'
+    }, 1000)
   }
 
-  const handlePaste = async ()=>{
-   let copyText = await navigator.clipboard.readText()
-   let text = btns.current.paste
-    text.innerText="Pasted!"
-    setTimeout(()=>{
-      text.innerText='Paste'
-    },1000)
-   setCode((prevText)=>`${prevText}\n${copyText}`)
+  const handlePaste = async () => {
+    let copyText = await navigator.clipboard.readText()
+    let text = btns.current.paste
+    text.innerText = "Pasted!"
+    setTimeout(() => {
+      text.innerText = 'Paste'
+    }, 1000)
+    setCode((prevText) => `${prevText}\n${copyText}`)
   }
 
 
   useEffect(() => {
-    savedCodes(user,Provider)
+    savedCodes(user, Provider)
   }, [])
 
 
@@ -171,20 +173,20 @@ const Page = () => {
       </div>
       <div className="editorSpace h-[calc(80vh-32px)] border p-2 bg-black box-border overflow-hidden text-amber-50 relative ">
         <Editor onMount={handleEditorMount} className='h-full' theme="vs-dark" onChange={(e) => setCode(e)} language="javascript" value={code} defaultValue={`// Q.${problem}\n// open leetcode https://leetcode.com/search/?q=${problem.split(' ').join('+')}\n`} />
-          <div className="btns absolute bottom-2 flex w-full  h-10 items-center">
-            <div className="copy-paste flex gap-2.5 ">
-            <button title='copy the code' className='copy text-center bg-amber-100 text-amber-700 px-2 w-20' ref={(el)=> btns.current.copy=el} onClick={(e)=>handleCopy(e,code)}>copy</button>
-            <button className='paste bg-amber-100 text-amber-700 px-2 w-20' ref={(el)=> btns.current.paste=el} onClick={handlePaste}>Paste</button>
-            </div>
-             <div className="clear-home mx-auto flex gap-2.5  items-center justify-center w-50 h-10">
-              <button className='paste bg-amber-100 text-amber-700 px-2 w-15' onClick={()=>setCode('')}>Clear</button>
-              <div className="sizeHolder w-15">
-              <button className=' border text-[rgb(1,1,1)] border-[rgb(241,241,241)] bg-[rgba(16,14,14,0.82)] px-1 hover:text-[17px] active:border-2'>
-              <span className='bg-[linear-gradient(50deg,red,pink,green,orange,blue,yellow)] text-transparent bg-clip-text font-bold text-stroke' onClick={()=>router.push('/home')}>HOME</span>
-              </button>
-              </div>
-             </div>
+        <div className="btns absolute bottom-2 flex w-full  h-10 items-center">
+          <div className="copy-paste flex gap-2.5 ">
+            <button title='copy the code' className='copy text-center bg-amber-100 text-amber-700 px-2 w-20' ref={(el) => btns.current.copy = el} onClick={(e) => handleCopy(e, code)}>copy</button>
+            <button className='paste bg-amber-100 text-amber-700 px-2 w-20' ref={(el) => btns.current.paste = el} onClick={handlePaste}>Paste</button>
           </div>
+          <div className="clear-home mx-auto flex gap-2.5  items-center justify-center w-50 h-10">
+            <button className='paste bg-amber-100 text-amber-700 px-2 w-15' onClick={() => setCode('')}>Clear</button>
+            <div className="sizeHolder w-15">
+              <button className=' border text-[rgb(1,1,1)] border-[rgb(241,241,241)] bg-[rgba(16,14,14,0.82)] px-1 hover:text-[17px] active:border-2'>
+                <span className='bg-[linear-gradient(50deg,red,pink,green,orange,blue,yellow)] text-transparent bg-clip-text font-bold text-stroke' onClick={() => router.push('/home')}>HOME</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       {!loading ? <footer className='border overflow-auto h-[20vh] border-amber-100 box-border p-2 bg-[rgb(50,49,49)] Scrollbar'>
         {output && (
@@ -219,4 +221,10 @@ const Page = () => {
   )
 }
 
-export default Page
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CodePage />
+    </Suspense>
+  );
+}

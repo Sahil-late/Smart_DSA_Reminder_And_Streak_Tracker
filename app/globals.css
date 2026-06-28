@@ -18,6 +18,13 @@ background-color:transparent;
 option{
   background: #251212;
 }
+#languages{
+  outline: none;
+  appearance: none;
+  option{
+    text-align: center;
+  }
+}
 .lower,.upper,.effect{
   transition:transform 5S ease 1s , opacity 5S ease 1s;
 }
@@ -70,26 +77,29 @@ tbody{
 }
 
 @media all and (max-width:350px) {
-  nav{
-    font-size: 10px;
-    font-weight: bold;
+  *{
+    font-size:10px;
   }
-  button{
-    width:60px;
-    font-size:12px;
+  .id{
+    font-size: 6px;
+    /* display: none; */
   }
-  .login .fl{
-    font-size: 16px;
+  label,#dificulty,.difficultyLevel{
+    font-size: 7px;
   }
-  .login{
-    width:40px;
-    height:40px;
+  .greet{
+    display:none;
   }
-  .QList{
-    font-size: 12px;
+}
+@media all and (max-width:450px) {
+  *{
+    font-size: 14px;
   }
-  table{
-    font-size:13px;
+  .id{
+    font-size: 8px;
+  }
+  label,#dificulty,.difficultyLevel{
+    font-size: 7px;
   }
 }
 ul>li{
@@ -97,3 +107,35 @@ ul>li{
   margin:3px 0px;
   cursor:pointer;
 }
+
+@keyframes loader {
+  0%{ background-color: rgba(255, 255, 255, 0.236); }
+  100% { background-color: rgba(255, 255, 255, 0.536); }
+}
+
+/* @keyframes slide {
+  0%{ background-image:linear-gradient(135deg,rgba(255, 255, 255, 0),rgb(255, 255, 255),rgba(255, 255, 255, 0.125),rgb(255, 255, 255),rgba(255, 255, 255, 0.125),rgba(255, 255, 255)); }
+  100%{ background-image:linear-gradient(90deg,rgba(255, 255, 255, 0),rgb(255, 255, 255),rgba(255, 255, 255, 0.125),rgb(255, 255, 255),rgba(255, 255, 255, 0.125),rgba(255, 255, 255)); }
+} */
+
+
+
+@keyframes blink {
+  0%{ background-image:linear-gradient(to left,rgba(255,255,255,0.2),rgba(255,255,255,0.9))}
+  100% {background-image:linear-gradient(to right,rgba(255,255,255,0.2),rgba(255,255,255,0.2)),rgba(255,255,255,0.9) }
+}
+
+
+.s3{
+  background-image: linear-gradient(135deg,rgba(0, 0, 0, 0.903),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989));
+}
+
+@keyframes slide {
+  from{
+    background-image: linear-gradient(135deg,rgba(0, 0, 0, 0.903),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989));
+  }
+  to{
+    background-image: linear-gradient(135deg,rgba(0, 0, 0, 0.903),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989),rgba(255, 255, 255, 0.774),rgba(255, 253, 253, 0.814),rgba(0, 0, 0, 0.989));
+  }
+}
+

@@ -30,6 +30,9 @@ const Login = () => {
             }
             else if (notify.data?.msg === 'Login Successfuly') {
                 showAlert({ msg: `${notify.data.msg} redircting in 3s` })
+                localStorage.setItem('user',JSON.stringify(notify.data?.user))
+                console.log(notify.data?.user);
+                
                 setTimeout(() => {
                     return router.push('/animation')
                 }, 2700)
@@ -51,46 +54,47 @@ const Login = () => {
     }
 
 
-   useEffect(() => {
-    if (status === "loading") return;
-    const handleLogin = async () => {
-        try {
-            if (status === "authenticated") {
+    useEffect(() => {
+        if (status === "loading") return;
+        const handleLogin = async () => {
+            try {
+                if (status === "authenticated") {
                     const res = await axios.post('/api/authLog', {
-                    email: session.user.email,
-                    provider:session.user.provider
+                        email: session.user.email,
+                        provider: session.user.provider
+                    });
+
+                    if (res?.data?.msg === 'Login Successfuly') {
+                        showAlert({ msg: `${session.user.provider} login success, redirecting...` });
+                        setTimeout(() => {
+                            router.push('/animation');
+                        }, 2700);
+                    }
+                    else {
+                        showAlert({ msg: `${res} login fails ...` });
+                    }
+                    return;
+                }
+
+                const res = await axios.post("/api/me", {
+                    autoLog: "Auto Login",
                 });
 
                 if (res?.data?.msg === 'Login Successfuly') {
-                    showAlert({ msg: `${session.user.provider} login success, redirecting...` });
+                    showAlert({ msg: `Auto login success, redirecting...` });
+                    localStorage.setItem('user',JSON.stringify(res.data?.user))
                     setTimeout(() => {
                         router.push('/animation');
                     }, 2700);
                 }
-                else{
-                   showAlert({ msg: `${res} login fails ...` });
-                }
-                return;
+
+            } catch (err) {
+                showAlert({ msg: err?.response?.data?.msg || "Not logged in" });
             }
+        };
 
-            const res = await axios.post("/api/me", {
-                autoLog: "Auto Login",
-            });
-
-            if (res?.data?.msg === 'Login Successfuly') {
-                showAlert({ msg: `Auto login success, redirecting...` });
-                setTimeout(() => {
-                    router.push('/animation');
-                }, 2700);
-            }
-
-        } catch (err) {
-            showAlert({ msg: err?.response?.data?.msg || "Not logged in" });
-        }
-    };
-
-    handleLogin();
-}, [status]);
+        handleLogin();
+    }, [status]);
 
     return (
         <div className="login h-screen w-screen flex items-center justify-center bg-gray-800">
@@ -105,7 +109,7 @@ const Login = () => {
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                         <div className="passField relative">
                             <input type={visiable ? "text" : "password"} id="password" className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-black placeholder-gray-500" placeholder="Enter your password" pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,}$"
-                                title="Must be 8+ chars, include 1 uppercase & 1 number" required />
+                                title="Must be 8+ chars, include 1 uppercase & 1 number" required maxLength='12' />
                             <button onClick={() => setVisiable(!visiable)} type='button' className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
                                 {visiable ? <Image src="/Eye/hide.png" alt="hide" width={20} height={20} /> : <Image src="/Eye/show.png" alt="show" width={20} height={20} />}
                             </button>

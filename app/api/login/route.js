@@ -25,5 +25,5 @@ export async function POST(request) {
         sameSite: "strict",
         maxAge: 60 * 60 * 24 * 7
     });
-    return Response.json({ msg: 'Login Successfuly' })
+    return Response.json({ msg: 'Login Successfuly',user:em})
 }

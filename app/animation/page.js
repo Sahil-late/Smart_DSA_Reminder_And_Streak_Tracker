@@ -31,7 +31,7 @@ const Page = () => {
         <div className="nose  w-0 h-0 mx-auto border border-x-50 border-x-transparent border-b-100 border-t-transparent "></div>
       </div>
       <div ref={mouth} className="mouthOpen h-[10%] bg-amber-400 flex justify-center items-center">
-        <button onClick={animate} className='text-amber-800'>Let`s Begin</button>
+        <button onClick={animate} className='text-amber-800 cursor-pointer'>Let`s Begin</button>
       </div>
       <div ref={lower} className="mouthLower h-[20%] bg-gray-700"></div>
     </div>

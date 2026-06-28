@@ -32,9 +32,9 @@ export async function POST(request) {
         }
 
         let { email } = jwt.verify(accesstokenCookie.value, process.env.ACCESS_JWT_SECRET)
-        let exists = await Sign.findOne({ email })
+        let exists = await Sign.findOne({ email })        
         if (!exists) return Response.json({ msg: 'Authorization Required' })
-        return Response.json({ msg: 'Login Successfuly' })
+        return Response.json({ msg: 'Login Successfuly',user:exists.email })
     } catch (er) {
         return Response.json({ msg: 'server error' }, { status: 500 })
     }

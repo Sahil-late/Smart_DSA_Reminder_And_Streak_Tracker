@@ -10,7 +10,6 @@ dotenv.config()
 export async function POST(request) {
     const { email, password } = await request.json()
     const cookieStore = await cookies();
-    console.log(email, password);
     const hashPass = await bcrypt.hash(password,10)
     dbConnect()
     let sign = new Sign({
@@ -22,7 +21,6 @@ export async function POST(request) {
         return Response.json({ msg: 'Email Allready Exists' })
     }
     const payload = { email ,password};
-    console.log(email);
     
     const JWT_TOKEN = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "7d"

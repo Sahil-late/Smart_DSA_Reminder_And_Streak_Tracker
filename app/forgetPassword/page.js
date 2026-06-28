@@ -6,6 +6,7 @@ import Image from 'next/image'
 import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import showAlert from '../utils/showalert'
+import Link from 'next/link'
 
 
 const Page = () => {
@@ -15,10 +16,12 @@ const Page = () => {
   const [visiable2, setVisiable2] = useState(false)
 
   const username = useRef()
+
   function Disable() {
     if (!url) return
     username.current.readOnly = true
   }
+
   useEffect(() => {
     Disable()
   }, [])
@@ -70,8 +73,11 @@ const Page = () => {
               </button>
               </div>
           </div>
-          <button className='border w-fit px-2 rounded-xl'>Change Password</button>
+          <button type='submit' className='border w-fit px-2 rounded-xl'>Change Password</button>
         </form>
+        <Link href='/'>
+        <button className='absolute top-4 left-4 border w-fit px-2 rounded-xl bg-amber-200 text-amber-900'>Login Page</button>
+        </Link>
       </div>
       <ToastContainer/>
     </>

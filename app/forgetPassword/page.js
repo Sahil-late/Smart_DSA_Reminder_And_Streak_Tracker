@@ -7,14 +7,14 @@ import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import showAlert from '../utils/showalert'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 
-const Page = () => {
+function ForgetPassPage() {
   let params = useSearchParams()
   const [url, setUrl] = useState(params.get('email') || '')
   const [visiable, setVisiable] = useState(false)
   const [visiable2, setVisiable2] = useState(false)
-
   const username = useRef()
 
   function Disable() {
@@ -84,4 +84,10 @@ const Page = () => {
   )
 }
 
-export default Page
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <forgetPassPage />
+    </Suspense>
+  );
+}

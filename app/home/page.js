@@ -361,7 +361,7 @@ const Home = () => {
                             {e.xp}XP
                           </div>
                           <button onClick={() => questionCompleted(e)} className="work cursor-pointer">
-                            <img className='h-[20px] w-[20px]' src={`/Options/${e.status}.png`} alt="" />
+                            <img className='h-[20px] w-[20px]' src={`/Options/${e.status[0] + e.status.slice(1, e.status.length)}.png`} alt="" />
                           </button>
                         </div>
                       </div>

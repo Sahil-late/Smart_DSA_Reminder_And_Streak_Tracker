@@ -208,7 +208,7 @@ const Home = () => {
   useEffect(() => {
     if (!date || !user) return
     Progress_Chart(new Date(date))
-  }, [date,completedQuestions])
+  }, [date,completedQuestions,progress])
 
 
   useEffect(() => {

@@ -27,7 +27,7 @@ function CodePage(){
   const searchParams = useSearchParams();
   const problem = searchParams.get("prob") ?? "";
   const user = searchParams.get("user") ?? "";
-  const provider = searchParams.get("provider") ?? "";
+  const Provider = searchParams.get("provider") ?? "";
 
   const handleFormat = () => {
     if (!editorRef.current) return console.log('not mount yet');

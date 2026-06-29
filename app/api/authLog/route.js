@@ -4,6 +4,8 @@ import Auth from '../../models/Auth'
 
 export async function POST(request) {
     try {
+        
+
         dbConnect()
         const { email, provider } = await request.json()
         let exist = await Auth.findOne({ email, provider });

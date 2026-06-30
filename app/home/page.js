@@ -475,12 +475,12 @@ const Home = () => {
                   <h1 className='font-bold pl-3'>Leaderboard</h1>
                   <div className='text-center text-[12px] font-bold underline decoration-amber-300 text-red-500'>Top Coders All Time</div>
                 </div>
-                <div className='flex h-8 w-full border-b text-center uppercase items-center'>
+                <div className='flex h-[15%] w-full border-b text-center uppercase items-center'>
                   <div className="ranks w-[20%]">ranks</div>
                   <div className="coders w-[80%]">coders</div>
                   <div className="xp w-[20%]">xp</div>
                 </div>
-                <div className="tcl flex flex-col gap-2 box-border p-2 h-full  overflow-y-auto Scrollbar">
+                <div className="tcl flex flex-col gap-2 box-border p-2 h-[65%]  overflow-y-auto Scrollbar">
                   {(globalRank && globalRank?.length !== 0) && (
                     globalRank.map((u, id) => (
                       <div className='flex h-8 w-full text-center not-odd:bg-[rgba(12,231,161,0.67)] not-even:bg-[rgba(247,5,5,0.6)] items-center border rounded-e-full' key={u._id}>

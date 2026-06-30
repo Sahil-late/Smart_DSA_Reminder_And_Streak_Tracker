@@ -480,7 +480,7 @@ const Home = () => {
                   <div className="coders w-[80%]">coders</div>
                   <div className="xp w-[20%]">xp</div>
                 </div>
-                <div className="tcl flex flex-col gap-2 box-border p-2 h-60 bg-white overflow-y-auto Scrollbar">
+                <div className="tcl flex flex-col gap-2 box-border p-2 h-full  overflow-y-auto Scrollbar">
                   {(globalRank && globalRank?.length !== 0) && (
                     globalRank.map((u, id) => (
                       <div className='flex h-8 w-full text-center not-odd:bg-[rgba(12,231,161,0.67)] not-even:bg-[rgba(247,5,5,0.6)] items-center border rounded-e-full' key={u._id}>
